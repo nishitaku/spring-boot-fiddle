@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,11 +87,7 @@ public class DemoApplicationController {
   public String xmlTest(ModelMap model) {
     logger.info("xmlTest called");
 
-    String str = null;
-    System.out.println("********** isNotBlank: " + isNotBlank(str));
-    System.out.println("********** isNotEmpty: " + isNotEmpty(str));
-    System.out.println("********** hasLength: " + StringUtils.hasLength(str));
-
+    // validtionSample();
 
     model.addAttribute("imgsrc", "http://hogehoge");
     model.addAttribute("fugafuga", "fuga");
@@ -105,9 +102,32 @@ public class DemoApplicationController {
     model.addAttribute("arg", "end");
     // model.addAttribute("data", data);
 
-    demoApplicationService.getDb();
-
     return "xml-test";
+  }
+
+  @GetMapping("user")
+  public String getUsers(String userId) {
+    demoApplicationService.getUser(Integer.parseInt(userId));
+    return "ok";
+  }
+
+  @PostMapping("user")
+  public String postUser(String userId, String name) {
+    demoApplicationService.addUser(Integer.parseInt(userId), name);
+    return "ok";
+  }
+
+  @DeleteMapping("user")
+  public String deleteUser(String userId) {
+    demoApplicationService.deleteUser(Integer.parseInt(userId));
+    return "ok";
+  }
+
+  private void validtionSample() {
+    String str = null;
+    System.out.println("********** isNotBlank: " + isNotBlank(str));
+    System.out.println("********** isNotEmpty: " + isNotEmpty(str));
+    System.out.println("********** hasLength: " + StringUtils.hasLength(str));
   }
 
   private boolean isBlank(final String str) {

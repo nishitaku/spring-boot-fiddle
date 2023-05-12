@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    group:
+      prod:
+        - prod
+        - db-prod
+      devv:
+        - dev
+        - db-dev

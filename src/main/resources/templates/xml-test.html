@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SerioCommands version="1.1">
+  <DisplayForm>
+    <script id="script_start" />
+    <InnerXmlStart />
+    <UiScreen>
+      <span id="autoTransition">
+        <AutoTransition>Dummy</AutoTransition>
+      </span>
+      <Operations>
+        <Op type="Submit" action="default_url" />
+        <span id="backUrl">
+          <Op type="Back" action="default_url" />
+        </span>
+      </Operations>
+      <IoScreen>
+        <title><span id="title"></span></title>
+        <Message th:imgsrc="${imgsrc}">
+          <span id="message" th:text="${fugafuga}">dummy</span>
+        </Message>
+        <Contents th:each="element : ${list}" th:text="${element}"></Contents>
+        <p th:text="#{content.title}"></p>
+        <p th:text="#{${messageId}(${arg})}"></p>
+        <p th:text="${data}"></p>
+      </IoScreen>
+    </UiScreen>
+    <InnerXmlEnd />
+    <script id="script_end" />
+  </DisplayForm>
+</SerioCommands>

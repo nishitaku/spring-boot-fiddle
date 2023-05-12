@@ -1,0 +1,4 @@
+myconfig:
+  env: prod
+  name: taroaf
+  age: 10

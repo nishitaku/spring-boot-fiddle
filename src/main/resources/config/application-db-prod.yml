@@ -1,0 +1,3 @@
+db:
+  env: prod
+  port: 2020

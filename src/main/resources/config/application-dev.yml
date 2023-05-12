@@ -1,0 +1,14 @@
+myconfig:
+  env: deveeeS
+  name: taroaf
+  age: 10
+  fuga:
+    foo: var
+  lang-to-country:
+    ja: JP
+    ko: KR
+    th: TH
+  hoge-list:
+    - aaa
+    - bbb
+    - cc

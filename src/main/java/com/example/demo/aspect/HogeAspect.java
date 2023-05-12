@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Order(1)
 @Component
-@Aspect
+// @Aspect
 public class HogeAspect {
 
 	@Autowired

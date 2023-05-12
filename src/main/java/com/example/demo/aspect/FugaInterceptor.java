@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Order(2)
 @Component
-@Aspect
+// @Aspect
 public class FugaInterceptor {
   // Beforeのサンプル
 	@Before("execution(* *..*.*Controller.*(..))")

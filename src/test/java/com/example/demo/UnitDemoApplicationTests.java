@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.example.demo.service.DemoApplicationService;
 
@@ -16,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -74,6 +73,32 @@ class UnitDemoApplicationTests {
 			.andExpect(xpath("/html/body/span").string(containsString("氏名： taro")))
 			.andExpect(xpath("/html/body/span").string(containsString("E-Mail： taro@gmail.com")))
 			.andExpect(xpath("/html/body/span").string(containsString("年齢： 100")));
+		}
+	}
+
+	@Nested
+	@DisplayName("GET /apiのテスト")
+	class ApiTest {
+
+		@Test
+		@DisplayName("パターン1")
+		void getApi1() throws Exception {
+			// DemoApplicationService#getAnimalをモック
+			when(demoApplicationService.getAnimal()).thenReturn("cat");
+
+			mockMvc.perform(
+				get("/api")
+				.param("name", "taro")
+				.param("email", "taro@gmail.com")
+				.param("age", "10")
+			)
+			.andExpect(status().isOk())
+			.andExpect(view().name("form"))
+			.andExpect(content().contentType("text/html;charset=UTF-8"))
+			.andExpect(xpath("//input[@type='text']/@value").string("taro"))
+			.andExpect(xpath("//input[@type='email']/@value").string("taro@gmail.com"))
+			.andExpect(xpath("//input[@type='number']/@value").string("10"))
+			.andExpect(xpath("/html/body/p").string("cat"));
 		}
 	}
 

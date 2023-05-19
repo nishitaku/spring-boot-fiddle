@@ -77,7 +77,7 @@ public class DemoApplicationController {
     String animal = demoApplicationService. getAnimal();
     System.out.println(animal);
 
-    model.addAttribute("hogehoge", 10000);
+    model.addAttribute("hogehoge", animal);
     return "form";
   }
 

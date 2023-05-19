@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.service.DemoApplicationService;
@@ -99,6 +100,42 @@ class UnitDemoApplicationTests {
 			.andExpect(xpath("//input[@type='email']/@value").string("taro@gmail.com"))
 			.andExpect(xpath("//input[@type='number']/@value").string("10"))
 			.andExpect(xpath("/html/body/p").string("cat"));
+		}
+	}
+
+	@Nested
+	@DisplayName("GET /xml-testのテスト")
+	class XmlTest {
+
+		@Test
+		@DisplayName("Accept-Language=ja-JP")
+		void getApi1() throws Exception {
+			mockMvc.perform(
+				get("/xml-test")
+				.header(HttpHeaders.ACCEPT_LANGUAGE, "ja-JP")
+			)
+			.andExpect(status().isOk())
+			.andExpect(view().name("xml-test"))
+			.andExpect(content().contentType("text/html;charset=UTF-8"))
+			.andExpect(xpath("//Message/@imgsrc").string("http://hogehoge"))
+			.andExpect(xpath("//Message/span[@id='message']").string("fuga"))
+			.andExpect(xpath("//Contents[1]").string("Apple"))
+			.andExpect(xpath("//Contents[2]").string("Orange"))
+			.andExpect(xpath("//Contents[3]").string("Melon"))
+			.andExpect(xpath("//IoScreen/p[2]").string("これはメッセージです end。"));
+		}
+
+		@Test
+		@DisplayName("Accept-Language=en")
+		void getApi2() throws Exception {
+			mockMvc.perform(
+				get("/xml-test")
+				.header(HttpHeaders.ACCEPT_LANGUAGE, "en")
+			)
+			.andExpect(status().isOk())
+			.andExpect(view().name("xml-test"))
+			.andExpect(content().contentType("text/html;charset=UTF-8"))
+			.andExpect(xpath("//IoScreen/p[2]").string("This is message end."));
 		}
 	}
 

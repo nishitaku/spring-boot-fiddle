@@ -6,13 +6,13 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.ext.mysql.MySqlDataTypeFactory;
 import org.dbunit.ext.mysql.MySqlMetadataHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-@Configuration
+@TestConfiguration
 public class TestConfig {
     @Autowired
     private DataSource dataSource;

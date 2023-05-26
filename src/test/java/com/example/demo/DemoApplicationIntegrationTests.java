@@ -24,12 +24,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
-@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
+@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class) // DBUnitでCSVファイルを使えるよう指定
 @SpringBootTest
-@Transactional
+@Transactional // @DatabaseSetupで投入するデータをテスト処理と同じトランザクション制御とする。（テスト後に投入データもロールバックできるように）
 @TestExecutionListeners({
-	DependencyInjectionTestExecutionListener.class,
-	TransactionDbUnitTestExecutionListener.class
+	DependencyInjectionTestExecutionListener.class, // このテストクラスでDIを使えるように指定
+	TransactionDbUnitTestExecutionListener.class // @DatabaseSetupや＠ExpectedDatabaseなどを使えるように指定
 })
 @ActiveProfiles("devv")
 @AutoConfigureMockMvc

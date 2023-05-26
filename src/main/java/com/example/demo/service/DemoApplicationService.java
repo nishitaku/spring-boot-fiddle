@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.config.DbConfig;
 import com.example.demo.config.DemoApplicationConfig;
+import com.example.demo.entity.UserEntity;
 import com.example.demo.repository.DemoApplicationRepository;
 
 @Service
@@ -35,8 +36,8 @@ public class DemoApplicationService {
     return "dog";
   }
 
-  public void getUser(int id) {
-    demoApplicationRepository.get(id);
+  public UserEntity getUser(int id) {
+    return demoApplicationRepository.get(id);
   }
 
   public void addUser(int id, String name) {

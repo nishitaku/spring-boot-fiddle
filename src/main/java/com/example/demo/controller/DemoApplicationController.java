@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.util.StringUtils;
 
+import com.example.demo.entity.UserEntity;
 import com.example.demo.model.User;
 import com.example.demo.service.DemoApplicationService;
 
@@ -106,9 +107,10 @@ public class DemoApplicationController {
   }
 
   @GetMapping("user")
-  public String getUsers(String userId) {
-    demoApplicationService.getUser(Integer.parseInt(userId));
-    return "ok";
+  public String getUsers(String userId, ModelMap model) {
+    UserEntity user = demoApplicationService.getUser(Integer.parseInt(userId));
+    model.addAttribute("name", user.getName());
+    return "user";
   }
 
   @PostMapping("user")

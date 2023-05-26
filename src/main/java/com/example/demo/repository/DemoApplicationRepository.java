@@ -25,21 +25,22 @@ public class DemoApplicationRepository {
   @PersistenceContext
   private EntityManager entityManager;
 
-  public void get(int id) {
+  public UserEntity get(int id) {
     // List<Map<String, Object>> list = jdbc.queryForList("SHOW TABLES FROM serio");
     // List<UserEntity> list = jdbcTemplate.query("SELECT * FROM user", new BeanPropertyRowMapper<UserEntity>(UserEntity.class));
-    List<UserEntity> list = jdbc.query("SELECT * FROM user WHERE id = ?", new BeanPropertyRowMapper<UserEntity>(UserEntity.class), id);
+    List<UserEntity> list = jdbc.query("SELECT * FROM demo_user WHERE id = ?", new BeanPropertyRowMapper<UserEntity>(UserEntity.class), id);
     // List<UserEntity> list = entityManager.createQuery("SELECT u FROM UserEntity u", UserEntity.class).getResultList();
     list.forEach(System.out::println);
+    return list.get(0);
   }
 
   public void insert(int id, String name) {
-    int num = jdbc.update("INSERT INTO user VALUES (?, ?)", id, name);
+    int num = jdbc.update("INSERT INTO demo_user VALUES (?, ?)", id, name);
     System.out.println(("db inserted" + num));
   }
 
   public void delete(int id) {
-    int num = jdbc.update("DELETE FROM user WHERE id = ?", id);
+    int num = jdbc.update("DELETE FROM demo_user WHERE id = ?", id);
     System.out.println(("db deleted" + num));
   }
 }
